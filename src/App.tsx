@@ -1,10 +1,11 @@
 import React from 'react';
-import { Header } from './styles';
+import { Header, Main } from './styles';
 
 function App() {
   return (
     <>
       <Header>Leonardo's Challenge</Header>
+      <Main></Main>
     </>
   );
 }
