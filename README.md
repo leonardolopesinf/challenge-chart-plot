@@ -1,89 +1,37 @@
-# Plotting a chart
+# Challenge Chart Plot
 
-In this challenge, you will implement a web application that plots a line chart based on some manually input data.
+## Technologies
 
-The input data is a sequence of events. This sequence represents the output of a query, which is omitted for simplicity. The data will be manually input by the final user instead. Based on the input sequence of events, you may generate a time based line chart containing one or more series.
+__React:__ Used for creating the web page. React has been my professional focus, so I have more experience and comfort with technology.
 
-## Definitions
-An event is a set of keys and values. For this challenge, it will be represented as a JSON. 
+__TypeScript:__ The application uses static typing with TypeScript. As a result, the code gains reliability, organization and readability.   
 
-```
-{a: 1, b: 2}
-```
+__Styled Components:__ Styled Components is responsible for the application's theme and the components' CSS. It provides a great ease in styling and has features such as global styles and theme definition, so I decided to use it. 
 
-> Although this is not a strict JSON format, we are being lenient in order to improve readability and facilitate the data input. As there are some backend libraries that support this format, you can implement that support as a bonus.
+__Nivo:__ A graphics library, I chose nivo because I've used it before and because it's very simple.
 
-On our system, each event has two mandatory fields: timestamp and type. All other fields are optional.
+__CodeMirror:__ I used CodeMirror because I have already used it in other projects, so it would be easier to use something I already know.
 
-* *timestamp* field holds the moment that the event refers to. It is formatted as a regular [Javascript timestamp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime)
+__Jest:__ React already has jest configured, including to perform component tests, I practically only use Jest and Cypress (end-to-end), since Jest is already configured, that's what I decided to use.
 
-* *type* field holds the definition of what is represented on each event. Its value can be one of the following:
+__Moment:__ An amazing tool for working with dates, I had no reason not to use it.
 
-### start
-Events of type *start* define that a new sequence of data events will follow, along with the fields that may be plotted and their grouping. A group is a category for splitting the same variable into different series.
+__Polished:__ Sometimes I need a color variation, be it darkening, lightening or making it transparent, and polished helps me in all that.
 
-Example:
-```
-{type: 'start', timestamp: 1519780251293, select: ['min_response_time', 'max_response_time'], group: ['os', 'browser']}
-```
-In this example, for each different value of the pair (os, browser), we may plot two lines: one that represents the minimum response time, and one that represents the maximum response time. That is: if there are two different values for os and two different values for browser, we should have 8 different lines plotted.
+## Protection for Huge Amount of Data
 
-### span
-Events of type *span* define what is the visible date range for the chart. A new event of this type may make the chart update its boundaries.
+Honestly, I thought a lot about this question, but an ideal solution to the problem didn't come to my mind. I tried to make the application as simple and performative as possible to avoid problems
 
-Example:
-```
-{type: 'span', timestamp: 1519780251293, begin: 1519780251293, end: 1519780260201}
-```
-In this example the data should be plotted inside the interval between the begin and end values, that is, the timestamps 1519780251293 and 1519780260201, respectively. All data outside this range may be ignored.
+I thought of some solutions, but without having more details on how these data are usually it is very difficult to think of the most appropriate solution.
 
-### stop
-Events of type *stop* define that no more data events will follow.
-A *stop* event is generated after loading a static timespan in the past, or if the user explicitly stops the query. If the chart consumes real time data, it might never be generated.
-Any events that eventually follow a *stop* event should be ignored, except for a new *start*, which would imply the creation of a new chart.
+I thought of strategies to not display all the data on the chart at once, maybe a filter or a pagination, however, what would be the best way to do this? I can't say because of the lack of information about the pattern of the data that will be used to generate the chart.
 
-Example:
-```
-{type: 'stop', timestamp: 1519780251293}
-```
+The best approach in my opinion was to have a back-end that would make life as easy as possible for the front-end, delivering formatted and validated data, thus reducing the processes that the application would have to execute, in fact, unlike the back-end that we have control of its technical specifications, the front-end runs on the user's machine, which will not necessarily have a good performance.
 
-### data
-Events of type *data* define the content that might be displayed on the chart.
+## Final considerations
 
-Example
-```
-{type: 'data', timestamp: 1519780251000, os: 'linux', browser: 'chrome', min_response_time: 0.1, max_response_time: 1.3}
-```
+I really enjoyed participating in the selection process, personally I wanted to be able to better understand the data that would be provided and develop a backend for the application.
 
-> Note that absent data values for the fields defined by *select* and *group* also generate new series. On the other hand, fields that are not defined should be ignored.
+I would appreciate it a lot if you gave me some feedback, it's always good to know the opinion about the project, it usually helps a lot in the evolution of the developer.
 
-## The challenge
-
-We expect you to:
-
-* Provide an input on the user interface to allow plotting different sequences of events;
-* Based on an arbitrary sequence of events, plot the chart that represents the output for that sequence;
-* Follow the layout indication provided on the prototype below;
-* Write tests;
-* Suggest and implement a protection for this application to deal with huge amount of data;
-* Justify design choices, arguing about costs and benefits involved. You may write those as comments inline or, if you wish, provide a separate document summarizing those choices;
-* Write all code and documentation in english
-
-![challenge_frontend](https://github.com/intelie/challenge-chart-plot/raw/master/challenge_frontend.png "Expected user interface")
-
-Although you can choose any graphical library to plot the chart, we suggest that you use a declarative JS framework to build the application such as ReactJS.
-
-## Solve this challenge
-
-To solve this challenge, you may fork this repository, then
-send us a link with your implementation. Alternatively, if you do not want to have this repo on
-your profile (we totally get it), send us a
-[git patch file](https://www.devroom.io/2009/10/26/how-to-create-and-apply-a-patch-with-git/)
-with your changes.
-
-There is no unique solution to this challenge. The intent is to evaluate candidate's ability and familiarity with tools and best practices.
-
-If you are already in the hiring process, you may send it to whoever is your contact at Intelie. If you wish to apply for a job at Intelie, please send your solution to [trabalhe@intelie.com.br](mailto:trabalhe@intelie.com.br).
-
-
-
+Anyway, thanks for the opportunity to be part of it, I'll be looking forward to the result. :smile: 
