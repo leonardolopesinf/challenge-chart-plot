@@ -1,4 +1,5 @@
 # Challenge Chart Plot
+[Click here to check website!](https://leonardolopesinf.github.io/challenge-chart-plot/)
 
 ## Technologies
 
