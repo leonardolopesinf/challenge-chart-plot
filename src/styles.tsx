@@ -52,7 +52,7 @@ export const Footer = styled.footer`
 
     background: ${(props) => props.theme.colors.highlight};
 
-    font-family: 'Source Sans Pro', sans - serif;
+    font-family: 'Source Sans Pro', sans-serif;
     font-size: 1.2rem;
     color: ${(props) => props.theme.colors.light};
 
