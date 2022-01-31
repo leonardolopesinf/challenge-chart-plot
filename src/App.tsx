@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Serie } from '@nivo/line';
 import CodeEditor from './components/CodeEditor';
 import Chart from './components/Chart';
+import formatRawData from './utils/formatRawData';
+import ChartData from './models/ChartData';
 import { Footer, Header, Main } from './styles';
 
 const defaultRawData = `{type: 'start', timestamp: 1519862400000, select: ['min_response_time', 'max_response_time'], group: ['os', 'browser']}
@@ -20,6 +22,14 @@ function App() {
   const [rawData, setRawData] = useState<string>(defaultRawData);
   const [series, setSeries] = useState<Serie[]>([]);
 
+  const handleChartGeneration = useCallback(() => {
+    const formattedRawData = formatRawData(rawData);
+
+    const chartData = new ChartData(formattedRawData);
+
+    setSeries(chartData.series);
+  }, [rawData]);
+
   return (
     <>
       <Header>Leonardo's Challenge</Header>
@@ -28,7 +38,7 @@ function App() {
         <Chart data={series} />
       </Main>
       <Footer>
-        <button>GENERATE CHART</button>
+        <button onClick={handleChartGeneration}>GENERATE CHART</button>
       </Footer>
     </>
   );
