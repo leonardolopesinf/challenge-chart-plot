@@ -25,6 +25,7 @@ const Chart: React.FC<Props> = ({ data }) => {
         }}
         enableGridX={false}
         axisLeft={null}
+        pointLabelYOffset={-12}
         useMesh={true}
         theme={{
           fontSize: 14,
