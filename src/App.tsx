@@ -1,11 +1,14 @@
 import React from 'react';
-import { Header, Main } from './styles';
+import { Footer, Header, Main } from './styles';
 
 function App() {
   return (
     <>
       <Header>Leonardo's Challenge</Header>
       <Main></Main>
+      <Footer>
+        <button>GENERATE CHART</button>
+      </Footer>
     </>
   );
 }
