@@ -1,4 +1,5 @@
 import { Serie } from '@nivo/line';
+import moment from 'moment';
 
 class ChartData {
   private _sequenceStarted = false;
@@ -42,6 +43,44 @@ class ChartData {
 
       this._abstractSeries[group][field] = groupFields;
     });
+  }
+
+  private _getLegend(group: string, field: string) {
+    const groupField = `${group}_${field}`;
+
+    let words = groupField.split('_');
+
+    words = words.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+
+    const legend = words.join(' ');
+
+    return legend;
+  }
+
+  private _generateSeries() {
+    const series = this._abstractSeries;
+
+    for (const groupName in series) {
+      const fieldNames = Object.keys(series[groupName]);
+
+      fieldNames.forEach((fieldName) => {
+        const legend = this._getLegend(groupName, fieldName);
+
+        const serieData = series[groupName][fieldName].map(
+          ({ timestamp, value }) => ({
+            x: moment(timestamp).format('HH:mm'),
+            y: value,
+          })
+        );
+
+        const serie: Serie = {
+          id: legend,
+          data: serieData,
+        };
+
+        this._series.push(serie);
+      });
+    }
   }
 
   private _start() {
@@ -107,6 +146,8 @@ class ChartData {
     this._series = [];
 
     for (const event of this._sequence) this._eventAction(event);
+
+    this._generateSeries();
 
     return this._series;
   }
